@@ -4,7 +4,7 @@ describe Tix::Record do
   let(:string_attribute_value) { 'bar' }
   let(:int_attribute_value)    { 4 }
   let(:bool_attribute_value)   { true }
-  let(:array_attribute_value)  { ['crock', 'glitch'] }
+  let(:array_attribute_value)  { %w[crock glitch] }
   let(:params) do
     {
       str: string_attribute_value,
@@ -32,7 +32,7 @@ describe Tix::Record do
     it 'returns boolean attribute values' do
       expect(subject.get(:bol)).to eq bool_attribute_value
     end
-    
+
     context 'when attribute does not exist' do
       it 'raises attribute not found error' do
         expect { subject.get(:bar) }.to raise_error AttributeNotFound

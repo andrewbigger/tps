@@ -38,7 +38,7 @@ describe Tix::RecordSet do
       allow(record).to receive(:match?)
       subject.where(query)
     end
-    
+
     it 'calls select on records array' do
       expect(records_array).to have_received(:select)
     end
