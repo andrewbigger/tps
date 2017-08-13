@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.dirname(File.realpath(__FILE__)) + '/../lib')
+
+require 'rubygems'
+require 'optparse'
+require 'tix'
+require 'tix/cli'
+
+ARGV.options do |opts|
+  opts.on('--trace')                       { @trace = true }
+  opts.on('-o', '--orgs=val', String)      { |val| @orgs_file    = File.new(val) rescue val }
+  opts.on('-u', '--users=val', String)     { |val| @users_file   = File.new(val) rescue val }
+  opts.on('-t', '--tickets=val', String)   { |val| @tickets_file = File.new(val) rescue val }
+  opts.on_tail('-h', '--help')             { puts 'halp!' }
+  opts.parse!
+end
+
+begin
+  Tix::CLI.verify_files(@orgs_file, @users_file, @tickets_file)
+  record_sets = Tix::CLI.load_record_sets(@orgs_file, @users_file, @tickets_file)
+  Tix::CLI::Session.new(record_sets).start
+rescue => exception
+  $stderr.puts 'An error has occurred'
+  $stderr.puts exception.message
+  if @trace
+    $stderr.puts exception.backtrace
+  else
+    $stderr.puts 'Add --trace flag for more information'
+  end
+  exit(1)
+end
+
+exit(0)
