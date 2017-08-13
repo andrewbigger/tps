@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe Tix::RecordSet do
+  let(:name)          { 'set name'}
   let(:records_array) { [] }
-  let(:record) { double(Tix::Record) }
+  let(:record)        { double(Tix::Record) }
 
-  subject { described_class.new(records_array) }
+  subject { described_class.new(name, records_array) }
 
   describe '.new_from_array' do
     let(:array) do
@@ -18,10 +19,14 @@ describe Tix::RecordSet do
       ]
     end
 
-    let(:set) { described_class.new_from_array(array) }
+    let(:set) { described_class.new_from_array(name, array) }
 
     it 'returns a record set' do
       expect(set).to be_a Tix::RecordSet
+    end
+
+    it 'has a name' do
+      expect(set.set_name).to eq name
     end
 
     it 'contains Tix::Records' do

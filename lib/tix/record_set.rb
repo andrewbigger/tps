@@ -2,13 +2,14 @@ require 'forwardable'
 module Tix
   class RecordSet
     extend Forwardable
-    attr_reader :records, :fields
+    attr_reader :set_name, :records, :fields
 
     def_delegators :@records, :<<, :select, :each, :first, :last, :length
 
-    def self.new_from_array(arr = [], record_obj = Record)
+    def self.new_from_array(name, arr = [], record_obj = Record)
       fields = []
       new(
+        name,
         arr.map do |record|
           record = record_obj.new(record)
           fields += record.fields
@@ -18,7 +19,8 @@ module Tix
       )
     end
 
-    def initialize(records = [], fields = [])
+    def initialize(set_name, records = [], fields = [])
+      @set_name = set_name
       @records = records
       @fields = fields
     end
