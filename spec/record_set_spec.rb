@@ -26,7 +26,7 @@ describe Tix::RecordSet do
     end
 
     it 'has a name' do
-      expect(set.set_name).to eq name
+      expect(set.name).to eq name
     end
 
     it 'contains Tix::Records' do
