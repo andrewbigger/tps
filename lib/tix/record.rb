@@ -4,6 +4,10 @@ module Tix
       @data = params
     end
 
+    def fields
+      @data.keys
+    end
+
     def get(attribute)
       raise AttributeNotFound, attribute unless @data.key?(attribute)
       @data[attribute]

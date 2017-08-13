@@ -32,6 +32,10 @@ describe Tix::RecordSet do
       expect(set.first.get(:foo)).to eq 'bar'
       expect(set.last.get(:biz)).to eq 'buzz'
     end
+
+    it 'caches record fields' do
+      expect(set.fields).to eq %i[foo biz]
+    end
   end
 
   describe 'delegation' do

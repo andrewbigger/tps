@@ -16,6 +16,12 @@ describe Tix::Record do
 
   subject { described_class.new(params) }
 
+  describe '#fields' do
+    it 'returns a list of record fields' do
+      expect(subject.fields).to eq %i[str arr bol int]
+    end
+  end
+
   describe '#get' do
     it 'returns string attribute values' do
       expect(subject.get(:str)).to eq string_attribute_value
