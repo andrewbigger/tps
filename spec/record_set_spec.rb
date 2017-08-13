@@ -6,6 +6,34 @@ describe Tix::RecordSet do
 
   subject { described_class.new(records_array) }
 
+  describe '.new_from_array' do
+    let(:array) do
+      [
+        {
+          foo: 'bar'
+        },
+        {
+          biz: 'buzz'
+        }
+      ]
+    end
+
+    let(:set) { described_class.new_from_array(array) }
+
+    it 'returns a record set' do
+      expect(set).to be_a Tix::RecordSet
+    end
+
+    it 'contains Tix::Records' do
+      expect(set.records).to all(be_a(Tix::Record))
+    end
+
+    it 'has expected attributes' do
+      expect(set.first.get(:foo)).to eq 'bar'
+      expect(set.last.get(:biz)).to eq 'buzz'
+    end
+  end
+
   describe 'delegation' do
     before do
       allow(records_array).to receive(:<<)
