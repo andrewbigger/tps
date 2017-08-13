@@ -1,5 +1,5 @@
 class AttributeNotFound < StandardError
   def message
-    'ERROR: Attribute not found'
+    'Attribute not found'
   end
 end
