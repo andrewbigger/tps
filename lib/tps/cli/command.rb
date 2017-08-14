@@ -15,7 +15,7 @@ module Tps
 
       def ask_s(prompt)
         response = ask(prompt)
-        raise Quit if quit?(prompt)
+        raise Quit if quit?(response)
         response.to_s
       end
 

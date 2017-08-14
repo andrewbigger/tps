@@ -23,11 +23,9 @@ describe Tps::CLI::Command do
   describe '#ask_s' do
     let(:prompt) { 'enter something that will be returned as string' }
     let(:response) { 'instruction' }
-    let(:quit) { false }
 
     before do
       allow(subject).to receive(:ask).and_return(response)
-      allow(subject).to receive(:quit?).and_return(quit)
     end
 
     it 'delegates prompting to highline' do
@@ -40,7 +38,7 @@ describe Tps::CLI::Command do
     end
 
     context 'given quit signal' do
-      let(:quit) { true }
+      let(:response) { 'quit' }
 
       it 'raises quit signal' do
         expect { subject.ask_s(prompt) }.to raise_error Quit
