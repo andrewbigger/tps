@@ -1,5 +1,5 @@
 require 'tix/errors/invalid_choice'
-
+require 'tix/errors/quit'
 module Tix
   module CLI
     class Search < Tix::CLI::Command
@@ -10,6 +10,8 @@ module Tix
         print_results
       rescue InvalidChoice
         say 'Unknown attribute or option'
+      rescue Quit
+        exit(0)
       end
 
       def choices
@@ -21,18 +23,20 @@ module Tix
       end
 
       def select_record_set
-        set_choice = ask("Select #{choices}").to_i - 1
+        response = ask_int("Select #{choices}")
+        set_choice = response - 1
         raise InvalidChoice if set_choice.negative?
         @record_set = @session.record_sets[set_choice]
       end
 
       def select_term
-        @term = ask('Select search term').to_sym
+        response = ask_sym('Select search term')
+        @term = response
         raise InvalidChoice unless @record_set.fields.include?(@term)
       end
 
       def select_value
-        @value = ask('Enter search value')
+        @value = ask_s('Enter search value')
       end
 
       def print_results

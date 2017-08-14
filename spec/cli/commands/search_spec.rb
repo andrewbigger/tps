@@ -59,12 +59,12 @@ describe Tix::CLI::Search do
 
     before do
       allow(subject).to receive(:choices).and_return(choice_prompt)
-      allow(subject).to receive(:ask).and_return(choice)
+      allow(subject).to receive(:ask_int).and_return(choice.to_i)
     end
 
     it 'asks for record set choice' do
       subject.select_record_set
-      expect(subject).to have_received(:ask)
+      expect(subject).to have_received(:ask_int)
         .with("Select #{choice_prompt}")
     end
 
@@ -79,6 +79,39 @@ describe Tix::CLI::Search do
 
       it 'raises invalid choice error' do
         expect { subject.select_record_set }
+          .to raise_error InvalidChoice
+      end
+    end
+  end
+
+  describe '#select_term' do
+    let(:choice) { 'foo' }
+
+    before do
+      subject.instance_variable_set(:@record_set, set_1)
+      allow(set_1).to receive(:fields).and_return([choice.to_sym])
+      allow(subject).to receive(:ask_sym).and_return(choice.to_sym)
+    end
+
+    it 'asks for search term choice' do
+      subject.select_term
+      expect(subject).to have_received(:ask_sym)
+        .with('Select search term')
+    end
+
+    it 'sets the search term' do
+      subject.select_term
+      expect(subject.instance_variable_get(:@term))
+        .to eq choice.to_sym
+    end
+
+    context 'given an unknown choice' do
+      let(:choice) { 'bogus' }
+
+      before { allow(set_1).to receive(:fields).and_return([:foo, :bar]) }
+
+      it 'raises invalid choice error' do
+        expect { subject.select_term }
           .to raise_error InvalidChoice
       end
     end
