@@ -9,6 +9,10 @@ module Tix
         @session = session
       end
 
+      def br
+        say("\n")
+      end
+
       def ask_s(prompt)
         response = ask(prompt)
         raise Quit if quit?(prompt)
@@ -20,7 +24,15 @@ module Tix
       end
 
       def ask_sym(prompt)
-        ask_s(prompt).to_sym
+        response = ask_s(prompt).to_s
+        response = "_#{response}" if number?(response)
+        response.to_sym
+      end
+
+      def number?(response)
+        return true if response == '0'
+        return true if response.to_i.positive?
+        false
       end
 
       def quit?(command)

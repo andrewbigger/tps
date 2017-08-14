@@ -11,6 +11,15 @@ describe Tix::CLI::Command do
       .to eq session
   end
 
+  describe '#br' do
+    before { allow(subject).to receive(:say) }
+
+    it 'outputs line break' do
+      subject.br
+      expect(subject).to have_received(:say).with("\n")
+    end
+  end
+
   describe '#ask_s' do
     let(:prompt) { 'enter something that will be returned as string' }
     let(:response) { 'instruction' }
@@ -74,12 +83,40 @@ describe Tix::CLI::Command do
       expect(subject.ask_sym(prompt)).to eq :id
     end
 
+    context 'given integer input' do
+      let(:response) { 1 }
+
+      it 'returns symbolized response prefixed with an underscore' do
+        expect(subject.ask_sym(prompt)).to eq :_1
+      end
+    end
+
     context 'given weird input' do
       let(:response) { 'The rain in Spain falls softly on the plain' }
 
       it 'returns symbolized response' do
         expect(subject.ask_sym(prompt))
           .to eq :"The rain in Spain falls softly on the plain"
+      end
+    end
+  end
+
+  describe '#number?' do
+    context 'given zero' do
+      it 'returns true' do
+        expect(subject.number?("0")).to be true
+      end
+    end
+
+    context 'given number greater than zero' do
+      it 'returns true' do
+        expect(subject.number?("20")).to be true
+      end
+    end
+
+    context 'given string' do
+      it 'returns false' do
+        expect(subject.number?('some-string')).to be false
       end
     end
   end
