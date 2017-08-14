@@ -8,14 +8,21 @@ module Tix
       end
 
       def start
-        
-      end
+        do_loop = true
+        say('Welcome to Zendesk Search')
+        response = ask('Type \'quit\' to exit at any time, Press any key to continue')
 
-      def execute(command)
-        case command.downcase.strip
-        when 'quit'
-          exit(0)
+        do_loop = false if response.downcase.strip == 'quit'
+
+        while do_loop
+          begin
+            Tix::CLI::Menu.new(self).execute
+          rescue Quit
+            break
+          end
         end
+
+        exit(0)
       end
     end
   end
