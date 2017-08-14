@@ -12,7 +12,7 @@ describe Tix::CLI::Renderer do
       allow(subject).to receive(:render_array) {}
       allow(subject).to receive(:render_hash)  {}
     end
-    
+
     context 'given an array' do
       let(:array) { [] }
 
@@ -33,7 +33,7 @@ describe Tix::CLI::Renderer do
   end
 
   describe '#render array' do
-    let(:array) { ['array', 'of', 'stuff'] }
+    let(:array) { %w[array of stuff] }
 
     it 'delegates rendering to pry pretty print' do
       subject.render_array(array)

@@ -49,5 +49,4 @@ describe Tix::CLI::List do
       expect(subject).to have_received(:br)
     end
   end
-
 end

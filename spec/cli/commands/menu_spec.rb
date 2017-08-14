@@ -6,7 +6,6 @@ describe Tix::CLI::Menu do
   let(:session) { Tix::CLI::Session.new([set_1, set_2]) }
 
   before do
-
   end
 
   subject { described_class.new(session) }

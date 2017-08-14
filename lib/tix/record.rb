@@ -1,7 +1,7 @@
 module Tix
   class Record
     attr_reader :data
-    
+
     def initialize(params = {})
       @data = params
     end

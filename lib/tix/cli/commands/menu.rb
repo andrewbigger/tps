@@ -25,10 +25,16 @@ module Tix
         when :quit
           raise Quit
         else
-          say('Unknown option')
-          br
-          select_option
+          report_unknown_option
         end
+      end
+
+      private
+
+      def report_unknown_option
+        say('Unknown option')
+        br
+        select_option
       end
     end
   end

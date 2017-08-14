@@ -65,7 +65,7 @@ describe Tix::CLI do
     before do
       allow(File).to receive(:basename)
         .with(file)
-        .and_return("File Basename")
+        .and_return('File Basename')
       allow(Tix::Parser).to receive(:parse).and_return(parsed_content)
     end
 

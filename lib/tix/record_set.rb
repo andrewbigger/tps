@@ -4,7 +4,7 @@ module Tix
     extend Forwardable
     attr_reader :name, :records, :fields
 
-    def_delegators :@records, :<<, :select, 
+    def_delegators :@records, :<<, :select,
                    :each, :first, :last, :length, :empty?
 
     def self.new_from_array(name, arr = [], record_obj = Record)

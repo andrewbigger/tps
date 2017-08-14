@@ -36,7 +36,7 @@ module Tix
       end
 
       def quit?(command)
-        command.strip.downcase == 'quit'
+        command.strip.casecmp('quit').zero?
       end
     end
   end

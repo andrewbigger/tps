@@ -63,7 +63,7 @@ describe Tix::CLI::Command do
 
     it 'returns int-erized response' do
       expect(subject.ask_int(prompt)).to eq 4
-    end 
+    end
   end
 
   describe '#ask_sym' do
@@ -104,13 +104,13 @@ describe Tix::CLI::Command do
   describe '#number?' do
     context 'given zero' do
       it 'returns true' do
-        expect(subject.number?("0")).to be true
+        expect(subject.number?('0')).to be true
       end
     end
 
     context 'given number greater than zero' do
       it 'returns true' do
-        expect(subject.number?("20")).to be true
+        expect(subject.number?('20')).to be true
       end
     end
 

@@ -59,7 +59,7 @@ describe Tix::CLI::Search do
   end
 
   describe '#select_record_set' do
-    let(:choice_prompt) { "the record set please" }
+    let(:choice_prompt) { 'the record set please' }
     let(:choice) { '2' }
 
     before do
@@ -113,7 +113,7 @@ describe Tix::CLI::Search do
     context 'given an unknown choice' do
       let(:choice) { 'bogus' }
 
-      before { allow(set_1).to receive(:fields).and_return([:foo, :bar]) }
+      before { allow(set_1).to receive(:fields).and_return(%i[foo bar]) }
 
       it 'raises invalid choice error' do
         expect { subject.select_term }
@@ -129,7 +129,7 @@ describe Tix::CLI::Search do
       allow(subject).to receive(:ask).and_return(search_term)
       subject.select_value
     end
-    
+
     it 'asks for search term' do
       expect(subject).to have_received(:ask)
         .with('Enter search value')

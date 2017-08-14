@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Tix::RecordSet do
-  let(:name)          { 'set name'}
+  let(:name)          { 'set name' }
   let(:records_array) { [] }
   let(:record)        { double(Tix::Record) }
 
