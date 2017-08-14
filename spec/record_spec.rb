@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tix::Record do
+describe Tps::Record do
   let(:string_attribute_value) { 'bar' }
   let(:int_attribute_value)    { 4 }
   let(:bool_attribute_value)   { true }

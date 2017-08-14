@@ -1,4 +1,4 @@
-module Tix
+module Tps
   module CLI
     class Session
       attr_reader :record_sets
@@ -25,7 +25,7 @@ module Tix
         do_loop = true
         while do_loop
           begin
-            Tix::CLI::Menu.new(self).execute
+            Tps::CLI::Menu.new(self).execute
           rescue Quit
             break
           end

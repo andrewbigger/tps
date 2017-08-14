@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Tix::CLI::List do
-  let(:set_1) { double(Tix::RecordSet, name: 'Set 1') }
-  let(:set_2) { double(Tix::RecordSet, name: 'Set 2') }
-  let(:session) { Tix::CLI::Session.new([set_1, set_2]) }
+describe Tps::CLI::List do
+  let(:set_1) { double(Tps::RecordSet, name: 'Set 1') }
+  let(:set_2) { double(Tps::RecordSet, name: 'Set 2') }
+  let(:session) { Tps::CLI::Session.new([set_1, set_2]) }
   let(:fields) { %i[field_1 field_2] }
 
   before do

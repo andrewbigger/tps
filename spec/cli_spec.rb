@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tix::CLI do
+describe Tps::CLI do
   describe '.verify_files' do
     let(:name)     { 'file.json' }
     let(:is_file)  { true }
@@ -66,12 +66,12 @@ describe Tix::CLI do
       allow(File).to receive(:basename)
         .with(file)
         .and_return('File Basename')
-      allow(Tix::Parser).to receive(:parse).and_return(parsed_content)
+      allow(Tps::Parser).to receive(:parse).and_return(parsed_content)
     end
 
     it 'loads and returns a collection of RecordSet' do
       expect(described_class.load_record_sets(file, file))
-        .to all(be_a(Tix::RecordSet))
+        .to all(be_a(Tps::RecordSet))
     end
   end
 end

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Tix::CLI::Menu do
-  let(:set_1) { double(Tix::RecordSet, name: 'Set 1') }
-  let(:set_2) { double(Tix::RecordSet, name: 'Set 2') }
-  let(:session) { Tix::CLI::Session.new([set_1, set_2]) }
+describe Tps::CLI::Menu do
+  let(:set_1) { double(Tps::RecordSet, name: 'Set 1') }
+  let(:set_2) { double(Tps::RecordSet, name: 'Set 2') }
+  let(:session) { Tps::CLI::Session.new([set_1, set_2]) }
 
   before do
   end
@@ -59,12 +59,12 @@ describe Tix::CLI::Menu do
 
   describe '#select_option' do
     let(:choice) { :unknown }
-    let(:command) { double(Tix::CLI::Command) }
+    let(:command) { double(Tps::CLI::Command) }
 
     before do
       allow(subject).to receive(:ask_sym).and_return(choice)
-      allow(Tix::CLI::Search).to receive(:new).and_return(command)
-      allow(Tix::CLI::List).to receive(:new).and_return(command)
+      allow(Tps::CLI::Search).to receive(:new).and_return(command)
+      allow(Tps::CLI::List).to receive(:new).and_return(command)
       allow(command).to receive(:execute)
     end
 
@@ -73,7 +73,7 @@ describe Tix::CLI::Menu do
       before { subject.select_option }
 
       it 'creates search command' do
-        expect(Tix::CLI::Search).to have_received(:new)
+        expect(Tps::CLI::Search).to have_received(:new)
       end
 
       it 'executes search command' do
@@ -86,7 +86,7 @@ describe Tix::CLI::Menu do
       before { subject.select_option }
 
       it 'creates list command' do
-        expect(Tix::CLI::List).to have_received(:new)
+        expect(Tps::CLI::List).to have_received(:new)
       end
 
       it 'executes command' do

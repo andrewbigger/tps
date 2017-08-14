@@ -1,6 +1,6 @@
 require 'yajl'
 
-module Tix
+module Tps
   class Parser
     class << self
       def parse(file)

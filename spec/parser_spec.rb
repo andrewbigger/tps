@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Tix::Parser do
+describe Tps::Parser do
   describe '.parse' do
     let(:file)   { double(File) }
     let(:parser) { double(Yajl::Parser) }
 
     before do
-      allow(Tix::Parser).to receive(:parser).and_return(parser)
+      allow(Tps::Parser).to receive(:parser).and_return(parser)
       allow(parser).to receive(:parse)
       described_class.parse(file)
     end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tix::CLI::Renderer do
+describe Tps::CLI::Renderer do
   before do
     allow(Pry::ColorPrinter).to receive(:pp) {}
   end

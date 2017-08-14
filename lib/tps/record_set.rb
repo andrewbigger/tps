@@ -1,5 +1,5 @@
 require 'forwardable'
-module Tix
+module Tps
   class RecordSet
     extend Forwardable
     attr_reader :name, :records, :fields

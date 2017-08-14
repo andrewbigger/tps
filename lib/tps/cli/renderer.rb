@@ -1,7 +1,7 @@
 require 'pry'
 require 'pp'
 
-module Tix
+module Tps
   module CLI
     module Renderer
       def render(obj)

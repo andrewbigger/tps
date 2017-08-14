@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Tix::CLI::Session do
-  let(:set_1) { double(Tix::RecordSet, name: 'Set 1') }
-  let(:set_2) { double(Tix::RecordSet, name: 'Set 2') }
+describe Tps::CLI::Session do
+  let(:set_1) { double(Tps::RecordSet, name: 'Set 1') }
+  let(:set_2) { double(Tps::RecordSet, name: 'Set 2') }
   let(:sets) { [set_1, set_2] }
 
   subject { described_class.new(sets) }
@@ -18,20 +18,20 @@ describe Tix::CLI::Session do
 
     before do
       allow(subject).to receive(:ask).and_return(response)
-      allow(Tix::CLI::Menu).to receive(:new).and_raise(Quit)
+      allow(Tps::CLI::Menu).to receive(:new).and_raise(Quit)
       allow(subject).to receive(:exit)
       subject.start
     end
 
     it 'executes menu' do
-      expect(Tix::CLI::Menu).to have_received(:new)
+      expect(Tps::CLI::Menu).to have_received(:new)
     end
 
     context 'when asked to quit' do
       let(:response) { 'quit' }
 
       it 'does not execute menu' do
-        expect(Tix::CLI::Menu).not_to have_received(:new)
+        expect(Tps::CLI::Menu).not_to have_received(:new)
       end
 
       it 'exits code zero' do

@@ -1,6 +1,6 @@
-module Tix
+module Tps
   module CLI
-    class List < Tix::CLI::Command
+    class List < Tps::CLI::Command
       def execute
         @session.record_sets.each do |record_set|
           print_fields(record_set)

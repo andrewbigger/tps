@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Tix::RecordSet do
+describe Tps::RecordSet do
   let(:name)          { 'set name' }
   let(:records_array) { [] }
-  let(:record)        { double(Tix::Record) }
+  let(:record)        { double(Tps::Record) }
 
   subject { described_class.new(name, records_array) }
 
@@ -22,15 +22,15 @@ describe Tix::RecordSet do
     let(:set) { described_class.new_from_array(name, array) }
 
     it 'returns a record set' do
-      expect(set).to be_a Tix::RecordSet
+      expect(set).to be_a Tps::RecordSet
     end
 
     it 'has a name' do
       expect(set.name).to eq name
     end
 
-    it 'contains Tix::Records' do
-      expect(set.records).to all(be_a(Tix::Record))
+    it 'contains Tps::Records' do
+      expect(set.records).to all(be_a(Tps::Record))
     end
 
     it 'has expected attributes' do
@@ -85,7 +85,7 @@ describe Tix::RecordSet do
     end
 
     it 'returns a record set' do
-      expect(subject.where(query)).to be_a Tix::RecordSet
+      expect(subject.where(query)).to be_a Tps::RecordSet
     end
   end
 end

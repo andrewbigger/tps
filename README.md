@@ -1,4 +1,4 @@
-# Tix
+# Tps
 
 Parse and search JSON objects on the command line.
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Tix::CLI::Command do
-  let(:session) { double(Tix::CLI::Session) }
+describe Tps::CLI::Command do
+  let(:session) { double(Tps::CLI::Session) }
   subject { described_class.new(session) }
 
   before { allow(subject).to receive(:ask) }

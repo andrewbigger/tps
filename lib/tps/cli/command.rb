@@ -1,9 +1,9 @@
 require 'highline/import'
 
-module Tix
+module Tps
   module CLI
     class Command
-      include Tix::CLI::Renderer
+      include Tps::CLI::Renderer
 
       def initialize(session)
         @session = session

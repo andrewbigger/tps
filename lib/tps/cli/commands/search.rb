@@ -1,8 +1,8 @@
-require 'tix/errors/invalid_choice'
-require 'tix/errors/quit'
-module Tix
+require 'tps/errors/invalid_choice'
+require 'tps/errors/quit'
+module Tps
   module CLI
-    class Search < Tix::CLI::Command
+    class Search < Tps::CLI::Command
       def execute
         select_record_set
         select_term

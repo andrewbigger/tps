@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe Tix do
+RSpec.describe Tps do
   it 'has a version number' do
-    expect(Tix::VERSION).not_to be nil
+    expect(Tps::VERSION).not_to be nil
   end
 end

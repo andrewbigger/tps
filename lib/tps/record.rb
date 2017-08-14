@@ -1,4 +1,4 @@
-module Tix
+module Tps
   class Record
     attr_reader :data
 

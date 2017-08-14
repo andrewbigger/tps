@@ -4,24 +4,30 @@ $LOAD_PATH.unshift(File.dirname(File.realpath(__FILE__)) + '/../lib')
 
 require 'rubygems'
 require 'optparse'
-require 'tix'
-require 'tix/cli'
+require 'tps'
+require 'tps/cli'
 
 ARGV.options do |opts|
   opts.on('--trace')                       { @trace = true }
   opts.on('-o', '--orgs=val', String)      { |val| @orgs_file    = File.new(val) rescue val }
   opts.on('-u', '--users=val', String)     { |val| @users_file   = File.new(val) rescue val }
   opts.on('-t', '--tickets=val', String)   { |val| @tickets_file = File.new(val) rescue val }
-  opts.on_tail('-h', '--help')             { puts 'halp!' }
+  opts.on_tail('-h', '--help') do
+    Tps::CLI.print_help
+  end
   opts.parse!
 end
 
+unless @orgs_file && @users_file && @tickets_file
+  Tps::CLI.print_help
+  exit(1)
+end 
+
 begin
-  Tix::CLI.verify_files(@orgs_file, @users_file, @tickets_file)
-  record_sets = Tix::CLI.load_record_sets(@orgs_file, @users_file, @tickets_file)
-  Tix::CLI::Session.new(record_sets).start
+  Tps::CLI.verify_files(@orgs_file, @users_file, @tickets_file)
+  record_sets = Tps::CLI.load_record_sets(@orgs_file, @users_file, @tickets_file)
+  Tps::CLI::Session.new(record_sets).start
 rescue => exception
-  $stderr.puts 'An error has occurred'
   $stderr.puts exception.message
   if @trace
     $stderr.puts exception.backtrace

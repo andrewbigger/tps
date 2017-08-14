@@ -1,8 +1,8 @@
-require 'tix/errors/quit'
+require 'tps/errors/quit'
 
-module Tix
+module Tps
   module CLI
-    class Menu < Tix::CLI::Command
+    class Menu < Tps::CLI::Command
       def execute
         print_options
         select_option
@@ -19,9 +19,9 @@ module Tix
       def select_option
         case ask_sym('What would you like to do?')
         when :_1
-          Tix::CLI::Search.new(@session).execute
+          Tps::CLI::Search.new(@session).execute
         when :_2
-          Tix::CLI::List.new(@session).execute
+          Tps::CLI::List.new(@session).execute
         when :quit
           raise Quit
         else
