@@ -27,6 +27,7 @@ describe Tix::CLI::List do
   describe '#print_fields' do
     before do
       allow(subject).to receive(:say)
+      allow(subject).to receive(:br)
       subject.print_fields(set_1)
     end
 
@@ -42,6 +43,10 @@ describe Tix::CLI::List do
 
     it 'renders fields' do
       expect(subject).to have_received(:render).with(fields)
+    end
+
+    it 'adds line break after results' do
+      expect(subject).to have_received(:br)
     end
   end
 

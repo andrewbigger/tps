@@ -11,6 +11,7 @@ module Tix
         say '-----------------------------'
         say "Search #{record_set.name} with"
         render(record_set.fields)
+        br
       end
     end
   end

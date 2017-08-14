@@ -9,9 +9,8 @@ module Tix
         select_value
         print_results
       rescue InvalidChoice
-        say 'Unknown attribute or option'
-      rescue Quit
-        exit(0)
+        say 'Unknown attribute or option, please try again'
+        br
       end
 
       def choices
@@ -43,6 +42,7 @@ module Tix
         results = @record_set.where(@term => @value)
         say 'No results found' if results.empty?
         results.each { |result| render(result.data) }
+        br
       end
     end
   end

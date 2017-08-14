@@ -35,14 +35,19 @@ describe Tix::CLI::Search do
     context 'given an invalid choice is made' do
       before do
         allow(subject).to receive(:say)
+        allow(subject).to receive(:br)
         allow(subject).to receive(:select_record_set)
           .and_raise(InvalidChoice)
+        subject.execute
       end
 
       it 'notifies user that unknown attribute or option detected' do
-        subject.execute
         expect(subject).to have_received(:say)
-          .with('Unknown attribute or option')
+          .with('Unknown attribute or option, please try again')
+      end
+
+      it 'adds line break after message' do
+        expect(subject).to have_received(:br)
       end
     end
   end
@@ -122,7 +127,7 @@ describe Tix::CLI::Search do
 
     before do
       allow(subject).to receive(:ask).and_return(search_term)
-      subject.select_value  
+      subject.select_value
     end
     
     it 'asks for search term' do
@@ -145,12 +150,17 @@ describe Tix::CLI::Search do
       subject.instance_variable_set(:@record_set, record_set)
       allow(record_set).to receive(:where).and_return(result)
       allow(subject).to receive(:render) {}
+      allow(subject).to receive(:br)
       subject.print_results
     end
 
     it 'renders each result data' do
       expect(subject).to have_received(:render)
         .with(result_record.data).twice
+    end
+
+    it 'adds line break after message' do
+      expect(subject).to have_received(:br)
     end
 
     context 'given no results found' do
@@ -161,6 +171,10 @@ describe Tix::CLI::Search do
       it 'renders no results found message' do
         subject.print_results
         expect(subject).to have_received(:say).with('No results found')
+      end
+
+      it 'adds line break after message' do
+        expect(subject).to have_received(:br)
       end
     end
   end
