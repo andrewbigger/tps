@@ -1,6 +1,7 @@
 require 'tix/cli/renderer'
 require 'tix/cli/command'
 require 'tix/cli/commands/list'
+require 'tix/cli/commands/menu'
 require 'tix/cli/commands/search'
 require 'tix/cli/session'
 require 'tix/errors/file_not_found'
