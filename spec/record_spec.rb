@@ -66,7 +66,7 @@ describe Tps::Record do
     end
 
     shared_examples 'no match when given' do |value|
-      let(:params) { { attr: 'some record content'.gsub!(value) } }
+      let(:params) { { attr: 'some record content' } }
       let(:query)  { { attr: value } }
 
       it 'returns false when there is no match' do
