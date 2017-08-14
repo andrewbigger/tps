@@ -1,0 +1,1 @@
+class Quit < StandardError; end
