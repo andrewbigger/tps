@@ -7,25 +7,28 @@ require 'optparse'
 require 'tps'
 require 'tps/cli'
 
+input_files = {}
+
 ARGV.options do |opts|
   opts.on('--trace')                       { @trace = true }
-  opts.on('-o', '--orgs=val', String)      { |val| @orgs_file    = File.new(val) rescue val }
-  opts.on('-u', '--users=val', String)     { |val| @users_file   = File.new(val) rescue val }
-  opts.on('-t', '--tickets=val', String)   { |val| @tickets_file = File.new(val) rescue val }
+  opts.on('-o', '--orgs=val', String)      { |val| input_files[:orgs]    = File.new(val) rescue val }
+  opts.on('-u', '--users=val', String)     { |val| input_files[:users]   = File.new(val) rescue val }
+  opts.on('-t', '--tickets=val', String)   { |val| input_files[:tickets] = File.new(val) rescue val }
+  
   opts.on_tail('-h', '--help') do
     Tps::CLI.print_help
   end
   opts.parse!
 end
 
-unless @orgs_file && @users_file && @tickets_file
+unless input_files.length == 3
   Tps::CLI.print_help
   exit(1)
 end 
 
 begin
-  Tps::CLI.verify_files(@orgs_file, @users_file, @tickets_file)
-  record_sets = Tps::CLI.load_record_sets(@orgs_file, @users_file, @tickets_file)
+  Tps::CLI.verify_files(input_files)
+  record_sets = Tps::CLI.load_record_sets(input_files)
   Tps::CLI::Session.new(record_sets).start
 rescue => exception
   $stderr.puts exception.message
