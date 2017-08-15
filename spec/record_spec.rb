@@ -51,7 +51,7 @@ describe Tps::Record do
 
     context 'both queries match' do
       before do
-        allow(subject).to receive(:compare).and_return(0, 0)
+        allow(subject).to receive(:compare).and_return(true, true)
       end
 
       it 'returns true' do
@@ -61,7 +61,7 @@ describe Tps::Record do
 
     context 'one query matches' do
       before do
-        allow(subject).to receive(:compare).and_return(0, nil)
+        allow(subject).to receive(:compare).and_return(true, false)
       end
 
       it 'returns false' do
@@ -71,7 +71,7 @@ describe Tps::Record do
 
     context 'no query matches' do
       before do
-        allow(subject).to receive(:compare).and_return(nil, nil)
+        allow(subject).to receive(:compare).and_return(false, false)
       end
 
       it 'returns false' do
@@ -91,52 +91,19 @@ describe Tps::Record do
       end
 
       it 'delegates comparison to comparitor method' do
-        expect(subject).to have_received(:id_compare).with(attribute, value)
+        expect(subject).to have_received(:id_compare).with(value)
       end
     end
 
     context 'when comparitor is not present' do
-      let(:attribute_retrieval_spy) { double }
-      let(:value_spy) { double }
-
       before do
-        allow(attribute_retrieval_spy).to receive(:to_s).and_return(attribute)
-        allow(subject).to receive(:get).and_return(attribute_retrieval_spy)
-        allow(Regexp).to receive(:new).and_call_original
-        allow(value).to receive(:to_s).and_call_original
+        allow(subject).to receive(:string_match?)
+        allow(subject).to receive(:get).with(attribute).and_return(value)
         subject.compare(attribute, value)
       end
 
-      it 'stringifies attribute' do
-        expect(subject).to have_received(:get).with(attribute)
-        expect(attribute_retrieval_spy).to have_received(:to_s)
-      end
-
-      it 'stringifies value' do
-        expect(value).to have_received(:to_s)
-      end
-
-      it 'creates regular expression for comparison' do
-        expect(Regexp).to have_received(:new).with(value, true)
-      end
-    end
-
-    context 'commparing strings' do
-      let(:attribute) { :foo }
-      let(:value)     { 'bar' }
-
-      before { allow(subject).to receive(:get).and_return(value) }
-
-      it 'returns true on full match' do
-        expect(subject.compare(attribute, value)).to eq 0
-      end
-
-      it 'returns true on partial match' do
-        expect(subject.compare(attribute, "ba")).to eq 0
-      end
-
-      it 'returns false on no match' do
-        expect(subject.compare(attribute, 'bogus')).to be nil
+      it 'delegates comparison to #string_match? comparitor by default' do
+        expect(subject).to have_received(:string_match?).with(value, value)
       end
     end
   end

@@ -1,5 +1,6 @@
 module Tps
   class Record
+    include Tps::Comparitors
     attr_reader :data
 
     def initialize(params = {})
@@ -22,10 +23,9 @@ module Tps
     end
 
     def compare(attribute, value)
-      send("#{attribute}_compare", attribute, value)
+      send("#{attribute}_compare", value)
     rescue NoMethodError
-      # Do string match if precise comparitor is not available
-      get(attribute).to_s =~ Regexp.new(value.to_s, true)
+      string_match?(get(attribute), value)
     end
   end
 end

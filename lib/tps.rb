@@ -1,4 +1,5 @@
 require 'tps/version'
+require 'tps/comparitors'
 require 'tps/parser'
 require 'tps/record_set'
 require 'tps/record'
