@@ -4,9 +4,9 @@ describe Tps::UserRecord do
   let(:id) { 1 }
   let(:external_id) { 2 }
   let(:organization_id) { 3 }
-  let(:tags) { ['a', 'b', 'c'] }
+  let(:tags) { %w[a b c] }
   let(:role) { 'agent' }
-  let(:name) { 'Jane Smith' } 
+  let(:name) { 'Jane Smith' }
 
   let(:params) do
     {

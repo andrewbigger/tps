@@ -5,8 +5,8 @@ describe Tps::TicketRecord do
   let(:external_id) { 2 }
   let(:submitter_id) { 3 }
   let(:assignee_id) { 4 }
-  let(:tags) { ['a', 'b', 'c'] }
-  let(:name) { 'Jane Smith' } 
+  let(:tags) { %w[a b c] }
+  let(:name) { 'Jane Smith' }
 
   let(:params) do
     {
@@ -54,7 +54,7 @@ describe Tps::TicketRecord do
     end
   end
 
-    describe '#submitter_id_compare' do
+  describe '#submitter_id_compare' do
     before { subject.submitter_id_compare(submitter_id) }
 
     it 'delegates match to string_equal?' do

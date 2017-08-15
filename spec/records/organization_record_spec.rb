@@ -4,8 +4,8 @@ describe Tps::OrganizationRecord do
   let(:id) { 1 }
   let(:external_id) { 2 }
   let(:domain_names) { ['a.com', 'b.com', 'c.com'] }
-  let(:tags) { ['a', 'b', 'c'] }
-  let(:name) { 'Giant Corp' } 
+  let(:tags) { %w[a b c] }
+  let(:name) { 'Giant Corp' }
 
   let(:params) do
     {
@@ -35,7 +35,6 @@ describe Tps::OrganizationRecord do
   end
 
   describe '#external_id_compare' do
-    
     before { subject.external_id_compare(external_id) }
 
     it 'delegates match to string_equal?' do
