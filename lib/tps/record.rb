@@ -17,8 +17,15 @@ module Tps
 
     def match?(query)
       query.all? do |attribute, value|
-        get(attribute).to_s =~ Regexp.new(value.to_s, true)
+        compare(attribute, value)
       end
+    end
+
+    def compare(attribute, value)
+      send("#{attribute}_compare", attribute, value)
+    rescue NoMethodError
+      # Do string match if precise comparitor is not available
+      get(attribute).to_s =~ Regexp.new(value.to_s, true)
     end
   end
 end

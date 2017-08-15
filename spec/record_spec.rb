@@ -47,49 +47,97 @@ describe Tps::Record do
   end
 
   describe '#match?' do
-    shared_examples 'an exact match when given' do |value|
-      let(:params) { { attr: value, another_attr: 'something else' } }
-      let(:query)  { { attr: value } }
+    let(:query) { { foo: 'bar', biz: 'baz' } }
 
-      it 'returns true when there is an exact match' do
+    context 'both queries match' do
+      before do
+        allow(subject).to receive(:compare).and_return(0, 0)
+      end
+
+      it 'returns true' do
         expect(subject.match?(query)).to be true
       end
     end
 
-    shared_examples 'a partial match when given' do |value|
-      let(:params) { { attr: "#{value} with stuff", another_attr: 5 } }
-      let(:query)  { { attr: value } }
-
-      it 'returns true when there is a partial match' do
-        expect(subject.match?(query)).to be true
+    context 'one query matches' do
+      before do
+        allow(subject).to receive(:compare).and_return(0, nil)
       end
-    end
 
-    shared_examples 'no match when given' do |value|
-      let(:params) { { attr: 'some record content' } }
-      let(:query)  { { attr: value } }
-
-      it 'returns false when there is no match' do
+      it 'returns false' do
         expect(subject.match?(query)).to be false
       end
     end
 
-    context 'when matching a string value' do
-      it_behaves_like 'an exact match when given', 'a string'
-      it_behaves_like 'a partial match when given', 'some string'
-      it_behaves_like 'no match when given', 'another string'
+    context 'no query matches' do
+      before do
+        allow(subject).to receive(:compare).and_return(nil, nil)
+      end
+
+      it 'returns false' do
+        expect(subject.match?(query)).to be false
+      end
+    end
+  end
+
+  describe '#compare' do
+    let(:attribute) { :id }
+    let(:value)     { 'some-id' }
+
+    context 'when comparitor method is present' do
+      before do
+        allow(subject).to receive(:id_compare) {}
+        subject.compare(attribute, value)
+      end
+
+      it 'delegates comparison to comparitor method' do
+        expect(subject).to have_received(:id_compare).with(attribute, value)
+      end
     end
 
-    context 'when matching an integer value' do
-      it_behaves_like 'an exact match when given', 4
-      it_behaves_like 'a partial match when given', 6
-      it_behaves_like 'no match when given', 10
+    context 'when comparitor is not present' do
+      let(:attribute_retrieval_spy) { double }
+      let(:value_spy) { double }
+
+      before do
+        allow(attribute_retrieval_spy).to receive(:to_s).and_return(attribute)
+        allow(subject).to receive(:get).and_return(attribute_retrieval_spy)
+        allow(Regexp).to receive(:new).and_call_original
+        allow(value).to receive(:to_s).and_call_original
+        subject.compare(attribute, value)
+      end
+
+      it 'stringifies attribute' do
+        expect(subject).to have_received(:get).with(attribute)
+        expect(attribute_retrieval_spy).to have_received(:to_s)
+      end
+
+      it 'stringifies value' do
+        expect(value).to have_received(:to_s)
+      end
+
+      it 'creates regular expression for comparison' do
+        expect(Regexp).to have_received(:new).with(value, true)
+      end
     end
 
-    context 'when matching a boolean value' do
-      it_behaves_like 'an exact match when given', true
-      it_behaves_like 'a partial match when given', false
-      it_behaves_like 'no match when given', true
+    context 'commparing strings' do
+      let(:attribute) { :foo }
+      let(:value)     { 'bar' }
+
+      before { allow(subject).to receive(:get).and_return(value) }
+
+      it 'returns true on full match' do
+        expect(subject.compare(attribute, value)).to eq 0
+      end
+
+      it 'returns true on partial match' do
+        expect(subject.compare(attribute, "ba")).to eq 0
+      end
+
+      it 'returns false on no match' do
+        expect(subject.compare(attribute, 'bogus')).to be nil
+      end
     end
   end
 end
