@@ -1,7 +1,9 @@
 module Tps
   module Comparitors
     def array_include?(array, search_val)
-      array.include?(search_val)
+      array.any? do |item| 
+        string_match?(item, search_val)
+      end
     end
 
     def string_equal?(record_val, search_val)

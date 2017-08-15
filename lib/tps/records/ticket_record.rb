@@ -16,8 +16,8 @@ module Tps
       string_equal?(get(:submitter_id), value)
     end
 
-    def assignee_compare(value)
-      string_equal?(get(:assignee), value)
+    def assignee_id_compare(value)
+      string_equal?(get(:assignee_id), value)
     end
   end
 end

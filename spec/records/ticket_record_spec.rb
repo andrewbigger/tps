@@ -4,9 +4,8 @@ describe Tps::TicketRecord do
   let(:id) { 1 }
   let(:external_id) { 2 }
   let(:submitter_id) { 3 }
-  let(:assignee) { 4 }
+  let(:assignee_id) { 4 }
   let(:tags) { ['a', 'b', 'c'] }
-  let(:assignee) { 'agent' }
   let(:name) { 'Jane Smith' } 
 
   let(:params) do
@@ -15,7 +14,7 @@ describe Tps::TicketRecord do
       external_id: external_id,
       tags: tags,
       submitter_id: submitter_id,
-      assignee: assignee,
+      assignee_id: assignee_id,
       name: name
     }
   end
@@ -64,12 +63,12 @@ describe Tps::TicketRecord do
     end
   end
 
-  describe '#assignee_compare' do
-    before { subject.assignee_compare(assignee) }
+  describe '#assignee_id_compare' do
+    before { subject.assignee_id_compare(assignee_id) }
 
     it 'delegates match to string_equal?' do
       expect(subject).to have_received(:string_equal?)
-        .with(assignee, assignee)
+        .with(assignee_id, assignee_id)
     end
   end
 end

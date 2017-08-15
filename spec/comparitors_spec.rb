@@ -69,6 +69,11 @@ describe Tps::Comparitors do
           .to be true
       end
 
+      it 'is not case sensitive' do
+        expect(subject.string_match?(record_val, 'FoO'))
+          .to be true
+      end
+
       it 'returns false on no match' do
         expect(subject.string_match?(record_val, 'bogus'))
           .to be false
