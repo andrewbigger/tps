@@ -83,6 +83,31 @@ describe Tps::Record do
   describe '#compare' do
     let(:attribute) { :id }
     let(:value)     { 'some-id' }
+    let(:params) { { attribute => value } }
+
+    context 'when searching for \empty' do
+      let(:value) { '' }
+      let(:params) { { attribute => '' } }
+
+      before do
+        allow(subject).to receive(:id_comparitor)
+        allow(subject).to receive(:val_empty?)
+        allow(subject).to receive(:string_match?)
+        subject.compare(attribute, '\empty')
+      end
+
+      it 'delegates comparison to empty comparitor' do
+        expect(subject).to have_received(:val_empty?).with(value)
+      end
+
+      it 'does not run attribute comparitor' do
+        expect(subject).not_to have_received(:id_comparitor)
+      end
+
+      it 'does not run default comparitor' do
+        expect(subject).not_to have_received(:string_match?)
+      end
+    end
 
     context 'when comparitor method is present' do
       before do

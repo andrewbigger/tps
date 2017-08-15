@@ -132,7 +132,7 @@ describe Tps::CLI::Search do
 
     it 'asks for search term' do
       expect(subject).to have_received(:ask)
-        .with('Enter search value')
+        .with("Enter search value (enter \\empty to search for empty fields)\n")
     end
 
     it 'assigns given search term to @value' do

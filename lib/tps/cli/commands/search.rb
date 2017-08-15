@@ -35,7 +35,9 @@ module Tps
       end
 
       def select_value
-        @value = ask_s('Enter search value')
+        @value = ask_s <<~PROMPT
+          Enter search value (enter \\empty to search for empty fields)
+        PROMPT
       end
 
       def print_results

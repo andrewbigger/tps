@@ -23,6 +23,7 @@ module Tps
     end
 
     def compare(attribute, value)
+      return val_empty?(get(attribute)) if value == '\empty'
       send("#{attribute}_compare", value)
     rescue NoMethodError
       string_match?(get(attribute), value)

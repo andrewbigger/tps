@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe Tps::Comparitors do
-
   subject { Object.new.extend(described_class) }
 
   describe '#array_include?' do
-    let(:record_val) { ['foo', 'bar', 'baz'] }
+    let(:record_val) { %w[foo bar baz] }
 
     it 'returns true if array contains search value' do
       expect(subject.array_include?(record_val, 'foo')).to be true
@@ -18,9 +17,9 @@ describe Tps::Comparitors do
 
   describe '#string_equal?' do
     let(:record_val) { 'foo' }
-    
+
     it 'returns true on match' do
-      expect(subject.string_equal?(record_val, record_val)).to be true  
+      expect(subject.string_equal?(record_val, record_val)).to be true
     end
 
     it 'returns false on partial match' do
@@ -78,6 +77,20 @@ describe Tps::Comparitors do
         expect(subject.string_match?(record_val, 'bogus'))
           .to be false
       end
+    end
+  end
+
+  describe '#val_empty?' do
+    it 'returns true when given empty string' do
+      expect(subject.val_empty?('')).to be true
+    end
+
+    it 'returnst true when given empty array' do
+      expect(subject.val_empty?([])).to be true
+    end
+
+    it 'returns false when given string' do
+      expect(subject.val_empty?('the rain in spain')).to be false
     end
   end
 end
