@@ -39,6 +39,24 @@ And then follow the prompts.
 
 You may exit at any time by entering the `quit` command at the current prompt
 
+### Performance
+
+JSON is parsed and loaded into memory, where the searching is done. For large files, parsing the JSON into memory objects takes the lion's share of the execution time.
+
+### Search Behaviour
+
+The default search matcher is a case insensitive match of any part of a string. However each record type is capable of implementing its own overrides for attributes where a partial match, or a string based match is not suitable.
+
+For example, partial matching of IDs doesn't feel partiularly useful - i.e. searching for an ID of 1 using the default matcher will match any ID with 1 in it (1, 10, 11 etc).
+
+Therefore, all ID attributes in known record types perform a case sensitive equivalence check before including them in the results.
+
+Tag searches select from an array where a case insensitive partial match is observed on any one of the elements in the array. As such given the current implementation searching for multiple tags simultaneously isn't currently possible.
+
+Boolean values are matched as strings. 
+
+You may search for empty values by specifying `\empty` as your search term. Bad luck if you've got some data with backslash + empty.
+
 ## Tests and Quality Checks
 
 To run application tests, please execute:
