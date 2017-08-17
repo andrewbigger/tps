@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Tps::RecordSet do
   let(:name)          { 'set name' }
   let(:records_array) { [] }
-  let(:record)        { double(Tps::Record) }
+  let(:record)        { instance_double(Tps::Record) }
 
   subject { described_class.new(name, records_array) }
 

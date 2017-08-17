@@ -6,12 +6,12 @@ describe Tps::CLI do
     let(:is_file)     { true }
     let(:exist)       { true }
     let(:readable)    { true }
-    let(:file)        { double(File) }
+    let(:file)        { instance_double(File) }
     let(:input_files) { { orgs: file, users: file, tickets: file } }
 
     before do
       allow(file).to receive(:is_a?).with(File).and_return(is_file)
-      allow(File).to receive(:baseanme).with(file).and_return(name)
+      allow(File).to receive(:basename).with(file).and_return(name)
       allow(File).to receive(:exist?).and_return(exist)
       allow(File).to receive(:readable?).and_return(readable)
     end
@@ -54,7 +54,7 @@ describe Tps::CLI do
   end
 
   describe '.load_record_sets' do
-    let(:file)        { double(File) }
+    let(:file)        { instance_double(File) }
     let(:input_files) { { orgs: file, users: file, tickets: file } }
     let(:parsed_content) do
       [
@@ -96,7 +96,7 @@ describe Tps::CLI do
 
   describe '.get_record_config' do
     let(:type) { :orgs }
-    let(:file) { double(File) }
+    let(:file) { instance_double(File) }
 
     context 'given known type' do
       it 'returns expected set configuration' do
@@ -131,7 +131,7 @@ describe Tps::CLI do
     end
 
     it 'returns specified set name' do
-      expect(described_class.set_name_for(:type, double(File)))
+      expect(described_class.set_name_for(:type, instance_double(File)))
         .to eq set_name
     end
   end
@@ -145,7 +145,7 @@ describe Tps::CLI do
     end
 
     it 'returns record class name' do
-      expect(described_class.record_class_for(:type, double(File)))
+      expect(described_class.record_class_for(:type, instance_double(File)))
         .to eq klass
     end
   end

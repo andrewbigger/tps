@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Tps::CLI::Search do
-  let(:set_1) { double(Tps::RecordSet, name: 'Set 1') }
-  let(:set_2) { double(Tps::RecordSet, name: 'Set 2') }
+  let(:set_1) { instance_double(Tps::RecordSet, name: 'Set 1') }
+  let(:set_2) { instance_double(Tps::RecordSet, name: 'Set 2') }
   let(:session) { Tps::CLI::Session.new([set_1, set_2]) }
 
   subject { described_class.new(session) }

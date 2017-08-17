@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Tps::Parser do
   describe '.parse' do
-    let(:file)   { double(File) }
-    let(:parser) { double(Yajl::Parser) }
+    let(:file)   { instance_double(File) }
+    let(:parser) { instance_double(Yajl::Parser) }
 
     before do
       allow(Tps::Parser).to receive(:parser).and_return(parser)

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Tps::CLI::Menu do
-  let(:set_1) { double(Tps::RecordSet, name: 'Set 1') }
-  let(:set_2) { double(Tps::RecordSet, name: 'Set 2') }
+  let(:set_1) { instance_double(Tps::RecordSet, name: 'Set 1') }
+  let(:set_2) { instance_double(Tps::RecordSet, name: 'Set 2') }
   let(:session) { Tps::CLI::Session.new([set_1, set_2]) }
 
   before do
@@ -59,7 +59,7 @@ describe Tps::CLI::Menu do
 
   describe '#select_option' do
     let(:choice) { :unknown }
-    let(:command) { double(Tps::CLI::Command) }
+    let(:command) { instance_double(Tps::CLI::Menu) }
 
     before do
       allow(subject).to receive(:ask_sym).and_return(choice)
