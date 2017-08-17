@@ -7,12 +7,12 @@ module Tps
     def_delegators :@records, :<<, :select,
                    :each, :first, :last, :length, :empty?
 
-    def self.new_from_array(name, arr = [], record_obj = Record)
+    def self.new_from_array(name, arr = [], record_class = Record)
       fields = []
       new(
         name,
         arr.map do |record|
-          record = record_obj.new(record)
+          record = record_class.new(record)
           fields |= record.fields
           record
         end,
