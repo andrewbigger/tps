@@ -1,6 +1,6 @@
 module Tps
   class Record
-    include Tps::Comparitors
+    include Tps::Comparators
     attr_reader :data
 
     def initialize(params = {})

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tps::Comparitors do
+describe Tps::Comparators do
   subject { Object.new.extend(described_class) }
 
   describe '#array_include?' do
